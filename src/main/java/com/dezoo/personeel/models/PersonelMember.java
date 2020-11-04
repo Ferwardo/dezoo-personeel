@@ -21,11 +21,13 @@ public class PersonelMember {
     private String postalCode;
     private String privatePhoneNumber;
 
+    private String personelCategory;
+
     //Constructors
     public PersonelMember() {
     }
 
-    public PersonelMember(int id, String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber) {
+    public PersonelMember(int id, String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
         Id = id;
         this.personelId = personelId;
         this.firstName = firstName;
@@ -34,9 +36,10 @@ public class PersonelMember {
         this.address = address;
         this.postalCode = postalCode;
         this.privatePhoneNumber = privatePhoneNumber;
+        this.personelCategory = personelCategory;
     }
 
-    public PersonelMember(String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber) {
+    public PersonelMember(String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
         this.personelId = personelId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,6 +47,7 @@ public class PersonelMember {
         this.address = address;
         this.postalCode = postalCode;
         this.privatePhoneNumber = privatePhoneNumber;
+        this.personelCategory = personelCategory;
     }
 
     //getters and setters
@@ -110,5 +114,13 @@ public class PersonelMember {
 
     public void setPrivatePhoneNumber(String privatePhoneNumber) {
         this.privatePhoneNumber = privatePhoneNumber;
+    }
+
+    public String getPersonelCategory() {
+        return personelCategory;
+    }
+
+    public void setPersonelCategory(String personelCategory) {
+        this.personelCategory = personelCategory;
     }
 }
