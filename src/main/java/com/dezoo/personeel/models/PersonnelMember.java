@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "personel_members")
-public class PersonelMember {
+public class PersonnelMember {
     //Fields
 
     @Id
@@ -24,10 +24,10 @@ public class PersonelMember {
     private String personelCategory;
 
     //Constructors
-    public PersonelMember() {
+    public PersonnelMember() {
     }
 
-    public PersonelMember(int id, String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
+    public PersonnelMember(int id, String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
         Id = id;
         this.personelId = personelId;
         this.firstName = firstName;
@@ -39,7 +39,7 @@ public class PersonelMember {
         this.personelCategory = personelCategory;
     }
 
-    public PersonelMember(String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
+    public PersonnelMember(String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
         this.personelId = personelId;
         this.firstName = firstName;
         this.lastName = lastName;
