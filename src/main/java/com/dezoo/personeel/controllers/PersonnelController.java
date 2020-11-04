@@ -24,18 +24,20 @@ public class PersonnelController {
     }
 
     @GetMapping("/{personnelID}")
-    public PersonnelMember getPersonnelMemberID(@PathVariable String personnelID) {
-        return personelRepository.findPersonelMemberByPersonelId(personnelID);
+    public PersonnelMember getPersonnelMemberByID(@PathVariable String personnelID) {
+        return personelRepository.findPersonnelMemberByPersonnelId(personnelID);
     }
 
     @PostMapping
-    public void postPersonnelMember(@RequestBody PersonnelMember personnelMember) {
+    public ResponseEntity<PersonnelMember> postPersonnelMember(@RequestBody PersonnelMember personnelMember) {
         personelRepository.save(personnelMember);
+
+        return ResponseEntity.ok(personnelMember);
     }
 
     @PutMapping("/{personnelID}")
     public ResponseEntity<PersonnelMember> putPersonnelMember(@PathVariable String personnelID, @RequestBody PersonnelMember personnelMember) {
-        PersonnelMember personnelMember2 = personelRepository.findPersonelMemberByPersonelId(personnelID);
+        PersonnelMember personnelMember2 = personelRepository.findPersonnelMemberByPersonnelId(personnelID);
 
         personnelMember2.setAddress(personnelMember.getAddress());
         personnelMember2.setDateOfBirth(personnelMember.getDateOfBirth());
@@ -52,7 +54,7 @@ public class PersonnelController {
 
     @DeleteMapping("/{personnelID}")
     public ResponseEntity<PersonnelMember> deletePersonnelMember(@PathVariable String personnelID){
-        PersonnelMember personnelMember = personelRepository.findPersonelMemberByPersonelId(personnelID);
+        PersonnelMember personnelMember = personelRepository.findPersonnelMemberByPersonnelId(personnelID);
         personelRepository.delete(personnelMember);
 
         return ResponseEntity.ok(personnelMember);
