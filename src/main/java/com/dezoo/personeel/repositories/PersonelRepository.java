@@ -1,7 +1,8 @@
 package com.dezoo.personeel.repositories;
 
-import com.dezoo.personeel.models.PersonelMember;
+import com.dezoo.personeel.models.PersonnelMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PersonelRepository extends JpaRepository<PersonelMember, Integer> {
+public interface PersonelRepository extends JpaRepository<PersonnelMember, Integer> {
+    PersonnelMember findPersonelMemberByPersonelId(String personelId);
 }
