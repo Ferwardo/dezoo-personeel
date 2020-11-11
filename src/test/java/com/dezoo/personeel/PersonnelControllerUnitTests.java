@@ -18,8 +18,8 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.mock;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -35,7 +35,7 @@ public class PersonnelControllerUnitTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenPersonnelMember_whenGetReviews_thenReturnJsonReviews() throws Exception {
+    public void givenPersonnelMember_whenGetReviews_thenReturnJsonPersonnelMember() throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         PersonnelMember personnelMember1 = new PersonnelMember(1, "fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration");
         PersonnelMember personnelMember2 = new PersonnelMember(2, "cn170999", "Christophe", "Neefs", format.parse("17/09/1999"), "Lier", "2500", "", "Rabbits");
@@ -72,7 +72,7 @@ public class PersonnelControllerUnitTests {
     }
 
     @Test
-    public void givenReview_whenGetPersonnelMemberByID_thenReturnJsonReview() throws Exception {
+    public void givenPersonelMember_whenGetPersonnelMemberByID_thenReturnJsonPersonnelMember() throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         PersonnelMember personnelMember1 = new PersonnelMember(1, "fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration");
 
@@ -93,7 +93,7 @@ public class PersonnelControllerUnitTests {
     }
 
     @Test
-    public void whenPostReview_thenReturnJsonReview() throws Exception {
+    public void whenPostPersonnelMember_thenReturnJsonPersonnelMember() throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         PersonnelMember personnelMember1 = new PersonnelMember(1, "fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration");
 
@@ -111,5 +111,51 @@ public class PersonnelControllerUnitTests {
                 .andExpect(jsonPath("$.postalCode", is("2250")))
                 .andExpect(jsonPath("$.privatePhoneNumber", is("+32441439")))
                 .andExpect(jsonPath("$.personelCategory", is("Administration")));
+    }
+
+    @Test
+    public void givenPersonnelMember_whenPutPersonnelMember_thenReturnJsonPersonnelMember() throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        PersonnelMember personnelMember1 = new PersonnelMember(1, "fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration");
+
+        given(personelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(personnelMember1);
+
+        PersonnelMember updatedPersonnelMember = new PersonnelMember(1, "fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 22", "2250", "+32441439", "Administration");
+
+        mockMvc.perform(put("/personnel")
+                .content(mapper.writeValueAsString(updatedPersonnelMember))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.personnelId", is("fs161100")))
+                .andExpect(jsonPath("$.firstName", is("Ferre")))
+                .andExpect(jsonPath("$.lastName", is("Snyers")))
+                .andExpect(jsonPath("$.dateOfBirth", is("2000-11-15T23:00:00.000+00:00")))
+                .andExpect(jsonPath("$.address", is("Gestelstraat 22")))
+                .andExpect(jsonPath("$.postalCode", is("2250")))
+                .andExpect(jsonPath("$.privatePhoneNumber", is("+32441439")))
+                .andExpect(jsonPath("$.personelCategory", is("Administration")));
+    }
+
+    @Test
+    public void givenReview_WhenDeleteReview_thenStatusOk() throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        PersonnelMember personnelMember1 = new PersonnelMember(1, "fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration");
+
+        given(personelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(personnelMember1);
+
+        mockMvc.perform(delete("/personnel/{personnelID}", "fs161100")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void givenNoReview_whenDeleteReview_thenStatusNotFound() throws Exception{
+        given(personelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(null);
+
+        mockMvc.perform(delete("/personnel/{personnelID}", "fs161100")
+        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

@@ -35,9 +35,9 @@ public class PersonnelController {
         return ResponseEntity.ok(personnelMember);
     }
 
-    @PutMapping("/{personnelID}")
-    public ResponseEntity<PersonnelMember> putPersonnelMember(@PathVariable String personnelID, @RequestBody PersonnelMember personnelMember) {
-        PersonnelMember personnelMember2 = personelRepository.findPersonnelMemberByPersonnelId(personnelID);
+    @PutMapping
+    public ResponseEntity<PersonnelMember> putPersonnelMember(@RequestBody PersonnelMember personnelMember) {
+        PersonnelMember personnelMember2 = personelRepository.findPersonnelMemberByPersonnelId(personnelMember.getPersonnelId());
 
         personnelMember2.setAddress(personnelMember.getAddress());
         personnelMember2.setDateOfBirth(personnelMember.getDateOfBirth());
@@ -47,7 +47,7 @@ public class PersonnelController {
         personnelMember2.setPrivatePhoneNumber(personnelMember.getPrivatePhoneNumber());
         personnelMember2.setPersonelCategory(personnelMember.getPersonelCategory());
 
-        personnelMember2 = personelRepository.save(personnelMember2);
+        personelRepository.save(personnelMember2);
 
         return ResponseEntity.ok(personnelMember2);
     }
@@ -60,14 +60,14 @@ public class PersonnelController {
         return ResponseEntity.ok(personnelMember);
     }
 
-    @PostConstruct
-    public void fillDBwithTestData() {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            personelRepository.save(new PersonnelMember("fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration"));
-            personelRepository.save(new PersonnelMember("cn170999", "Christophe", "Neefs", format.parse("17/09/1999"), "Lier", "2500", "", "Rabbits"));
-            personelRepository.save(new PersonnelMember("rh031000", "Robbe", "Heremans", format.parse("03/10/2000"), "Westerloo", "2260", "", "Lions"));
-        } catch (ParseException ignored) {
-        }
-    }
+//    @PostConstruct
+//    public void fillDBwithTestData() {
+//        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//        try {
+//            personelRepository.save(new PersonnelMember("fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration"));
+//            personelRepository.save(new PersonnelMember("cn170999", "Christophe", "Neefs", format.parse("17/09/1999"), "Lier", "2500", "", "Rabbits"));
+//            personelRepository.save(new PersonnelMember("rh031000", "Robbe", "Heremans", format.parse("03/10/2000"), "Westerloo", "2260", "", "Lions"));
+//        } catch (ParseException ignored) {
+//        }
+//    }
 }
