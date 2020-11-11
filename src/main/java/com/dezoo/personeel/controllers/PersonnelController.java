@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
@@ -53,11 +50,13 @@ public class PersonnelController {
     }
 
     @DeleteMapping("/{personnelID}")
-    public ResponseEntity<PersonnelMember> deletePersonnelMember(@PathVariable String personnelID){
+    public ResponseEntity<PersonnelMember> deletePersonnelMember(@PathVariable String personnelID) {
         PersonnelMember personnelMember = personelRepository.findPersonnelMemberByPersonnelId(personnelID);
-        personelRepository.delete(personnelMember);
-
-        return ResponseEntity.ok(personnelMember);
+        if (personnelMember != null) {
+            personelRepository.delete(personnelMember);
+            return ResponseEntity.ok().build();
+        } else
+            return ResponseEntity.notFound().build();
     }
 
 //    @PostConstruct
@@ -66,7 +65,7 @@ public class PersonnelController {
 //        try {
 //            personelRepository.save(new PersonnelMember("fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration"));
 //            personelRepository.save(new PersonnelMember("cn170999", "Christophe", "Neefs", format.parse("17/09/1999"), "Lier", "2500", "", "Rabbits"));
-//            personelRepository.save(new PersonnelMember("rh031000", "Robbe", "Heremans", format.parse("03/10/2000"), "Westerloo", "2260", "", "Lions"));
+//            personelRepository.save(new PersonnelMember("rh031000", "Robbe", "Heremans", format.parse("03/10/2000"), "Westerlo", "2260", "", "Lions"));
 //        } catch (ParseException ignored) {
 //        }
 //    }
