@@ -1,5 +1,7 @@
 package com.dezoo.personeel.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ public class PersonnelMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private int Id;
 
     private String personelId;
@@ -52,6 +55,7 @@ public class PersonnelMember {
 
     //getters and setters
 
+    @JsonIgnore
     public int getId() {
         return Id;
     }
