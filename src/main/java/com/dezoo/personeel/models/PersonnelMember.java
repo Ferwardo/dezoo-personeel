@@ -15,7 +15,7 @@ public class PersonnelMember {
     @JsonIgnore
     private int Id;
 
-    private String personelId;
+    private String personnelId;
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
@@ -30,9 +30,9 @@ public class PersonnelMember {
     public PersonnelMember() {
     }
 
-    public PersonnelMember(int id, String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
+    public PersonnelMember(int id, String personnelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
         Id = id;
-        this.personelId = personelId;
+        this.personnelId = personnelId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -42,8 +42,8 @@ public class PersonnelMember {
         this.personelCategory = personelCategory;
     }
 
-    public PersonnelMember(String personelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
-        this.personelId = personelId;
+    public PersonnelMember(String personnelId, String firstName, String lastName, Date dateOfBirth, String address, String postalCode, String privatePhoneNumber, String personelCategory) {
+        this.personnelId = personnelId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -53,7 +53,7 @@ public class PersonnelMember {
         this.personelCategory = personelCategory;
     }
 
-    //getters and setters
+//    getters and setters
 
     @JsonIgnore
     public int getId() {
@@ -64,12 +64,12 @@ public class PersonnelMember {
         Id = id;
     }
 
-    public String getPersonelId() {
-        return personelId;
+    public String getPersonnelId() {
+        return personnelId;
     }
 
-    public void setPersonelId(String personelId) {
-        this.personelId = personelId;
+    public void setPersonnelId(String personelId) {
+        this.personnelId = personelId;
     }
 
     public String getFirstName() {
