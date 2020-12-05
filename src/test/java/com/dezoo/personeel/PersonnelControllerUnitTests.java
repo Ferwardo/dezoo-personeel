@@ -82,7 +82,7 @@ public class PersonnelControllerUnitTests {
                 .andExpect(jsonPath("$.personnelId", is("fs161100")))
                 .andExpect(jsonPath("$.firstName", is("Ferre")))
                 .andExpect(jsonPath("$.lastName", is("Snyers")))
-                .andExpect(jsonPath("$.dateOfBirth", is("2000-11-15T23:00:00.000+00:00")))
+                .andExpect(jsonPath("$.dateOfBirth", is("2000-11-16T00:00:00.000+00:00")))
                 .andExpect(jsonPath("$.address", is("Gestelstraat 21")))
                 .andExpect(jsonPath("$.postalCode", is("2250")))
                 .andExpect(jsonPath("$.privatePhoneNumber", is("+32441439")))
