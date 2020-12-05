@@ -1,7 +1,7 @@
 package com.dezoo.personeel.controllers;
 
 import com.dezoo.personeel.models.PersonnelMember;
-import com.dezoo.personeel.repositories.PersonelRepository;
+import com.dezoo.personeel.repositories.PersonnelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 public class PersonnelController {
 
     @Autowired
-    private PersonelRepository personelRepository;
+    private PersonnelRepository personnelRepository;
 
     /**
      * Gets all personnel from the db
@@ -21,7 +21,7 @@ public class PersonnelController {
      */
     @GetMapping
     public List<PersonnelMember> getPersonnelMember() {
-        return personelRepository.findAll();
+        return personnelRepository.findAll();
     }
 
     /**
@@ -31,7 +31,7 @@ public class PersonnelController {
      */
     @GetMapping("/{personnelID}")
     public PersonnelMember getPersonnelMemberByID(@PathVariable String personnelID) {
-        return personelRepository.findPersonnelMemberByPersonnelId(personnelID);
+        return personnelRepository.findPersonnelMemberByPersonnelId(personnelID);
     }
 
     /**
@@ -41,7 +41,7 @@ public class PersonnelController {
      */
     @PostMapping
     public ResponseEntity<PersonnelMember> postPersonnelMember(@RequestBody PersonnelMember personnelMember) {
-        personelRepository.save(personnelMember);
+        personnelRepository.save(personnelMember);
 
         return ResponseEntity.ok(personnelMember);
     }
@@ -53,7 +53,7 @@ public class PersonnelController {
      */
     @PutMapping
     public ResponseEntity<PersonnelMember> putPersonnelMember(@RequestBody PersonnelMember personnelMember) {
-        PersonnelMember personnelMember2 = personelRepository.findPersonelMemberByPersonelId(personnelMember.getPersonelId());
+        PersonnelMember personnelMember2 = personnelRepository.findPersonnelMemberByPersonnelId(personnelMember.getPersonnelId());
 
         personnelMember2.setAddress(personnelMember.getAddress());
         personnelMember2.setDateOfBirth(personnelMember.getDateOfBirth());
@@ -63,7 +63,7 @@ public class PersonnelController {
         personnelMember2.setPrivatePhoneNumber(personnelMember.getPrivatePhoneNumber());
         personnelMember2.setPersonelCategory(personnelMember.getPersonelCategory());
 
-        personelRepository.save(personnelMember2);
+        personnelRepository.save(personnelMember2);
 
         return ResponseEntity.ok(personnelMember2);
     }
@@ -75,9 +75,9 @@ public class PersonnelController {
      */
     @DeleteMapping("/{personnelID}")
     public ResponseEntity<PersonnelMember> deletePersonnelMember(@PathVariable String personnelID) {
-        PersonnelMember personnelMember = personelRepository.findPersonelMemberByPersonelId(personnelID);
+        PersonnelMember personnelMember = personnelRepository.findPersonnelMemberByPersonnelId(personnelID);
         if (personnelMember != null) {
-            personelRepository.delete(personnelMember);
+            personnelRepository.delete(personnelMember);
             return ResponseEntity.ok().build();
         } else
             return ResponseEntity.notFound().build();
