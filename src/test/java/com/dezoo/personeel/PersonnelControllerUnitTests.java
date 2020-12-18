@@ -1,7 +1,7 @@
 package com.dezoo.personeel;
 
 import com.dezoo.personeel.models.PersonnelMember;
-import com.dezoo.personeel.repositories.PersonelRepository;
+import com.dezoo.personeel.repositories.PersonnelRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class PersonnelControllerUnitTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private PersonelRepository personelRepository;
+    private PersonnelRepository personnelRepository;
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -44,7 +44,7 @@ public class PersonnelControllerUnitTests {
         personnelMemberList.add(personnelMember1);
         personnelMemberList.add(personnelMember2);
 
-        given(personelRepository.findAll()).willReturn(personnelMemberList);
+        given(personnelRepository.findAll()).willReturn(personnelMemberList);
 
         mockMvc.perform(get("/personnel"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -74,7 +74,7 @@ public class PersonnelControllerUnitTests {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         PersonnelMember personnelMember1 = new PersonnelMember("fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration");
 
-        given(personelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(personnelMember1);
+        given(personnelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(personnelMember1);
 
         mockMvc.perform(get("/personnel/{personnelId}", "fs161100"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -114,7 +114,7 @@ public class PersonnelControllerUnitTests {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         PersonnelMember personnelMember1 = new PersonnelMember(1,"fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration");
 
-        given(personelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(personnelMember1);
+        given(personnelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(personnelMember1);
 
         PersonnelMember updatedPersonnelMember = new PersonnelMember(1, "fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 22", "2250", "+32441439", "Administration");
 
@@ -139,7 +139,7 @@ public class PersonnelControllerUnitTests {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         PersonnelMember personnelMember1 = new PersonnelMember("fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration");
 
-        given(personelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(personnelMember1);
+        given(personnelRepository.findPersonnelMemberByPersonnelId("fs161100")).willReturn(personnelMember1);
 
         mockMvc.perform(delete("/personnel/{personnelID}", "fs161100")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -148,7 +148,7 @@ public class PersonnelControllerUnitTests {
 
     @Test
     public void givenNoReview_whenDeleteReview_thenStatusNotFound() throws Exception{
-        given(personelRepository.findPersonnelMemberByPersonnelId("ff161100")).willReturn(null);
+        given(personnelRepository.findPersonnelMemberByPersonnelId("ff161100")).willReturn(null);
 
         mockMvc.perform(delete("/personnel/{personnelID}", "ff161100")
         .contentType(MediaType.APPLICATION_JSON))

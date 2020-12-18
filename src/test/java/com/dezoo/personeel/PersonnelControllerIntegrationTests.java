@@ -1,7 +1,7 @@
 package com.dezoo.personeel;
 
 import com.dezoo.personeel.models.PersonnelMember;
-import com.dezoo.personeel.repositories.PersonelRepository;
+import com.dezoo.personeel.repositories.PersonnelRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ public class PersonnelControllerIntegrationTests {
     private MockMvc mockMvc;
 
     @Autowired
-    private PersonelRepository personelRepository;
+    private PersonnelRepository personnelRepository;
 
     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     PersonnelMember personnelMember1 = new PersonnelMember("fs161100", "Ferre", "Snyers", format.parse("16/11/2000"), "Gestelstraat 21", "2250", "+32441439", "Administration"),
@@ -39,14 +39,14 @@ public class PersonnelControllerIntegrationTests {
 
     @BeforeEach
     public void beforeAllTests() {
-        personelRepository.save(personnelMember1);
-        personelRepository.save(personnelMember2);
-        personelRepository.save(personnelMemberToBeDeleted);
+        personnelRepository.save(personnelMember1);
+        personnelRepository.save(personnelMember2);
+        personnelRepository.save(personnelMemberToBeDeleted);
     }
 
     @AfterEach
     public void afterAllTest() {
-        personelRepository.deleteAll();
+        personnelRepository.deleteAll();
     }
 
     private ObjectMapper mapper = new ObjectMapper();
